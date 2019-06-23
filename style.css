@@ -17,6 +17,17 @@ h1 {
   padding:20px;
   margin:0px;
 }
+h4{
+  margin:5px;
+  margin-left: 15px;
+}
+h5{
+  margin:5px;
+  margin-left: 30px;
+}
+h5.italic{
+  font-style: italic;
+}
 ol {
   border-right:1px solid  gray;
   width: 100px;
