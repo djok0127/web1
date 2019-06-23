@@ -7,16 +7,50 @@
   <!-- creating name for the website(tab) -->
   <title>Dong Jae Shin's Website</title>
   <meta charset="utf-8">
+  <link rel = "stylesheet" href="style.css">
+  <style>
+    h4{
+      margin-left: 15px;
+    }
+  </style>
 </head>
-
 <body>
-  <h1><a href = "index.html"> Chris (Dong Jae) Shin's Website</a></h1>
+  <h1><a href = "index.html"> Dong Jae (Chris) Shin's Website</a></h1>
 
-  <ol>
-    <li><a href = "1.html"> HTML </a></li>
-    <li><a href = "2.html"> CSS </a></li>
-    <li><a href = "3.html"> JavaScript </a></li>
-  </ol>
-  
+  <div id = "grid">
+    <ol>
+      <li><a href = "1.html">  About Me </a></li>
+      <li><a href = "2.html"class = "active"> Projects </a></li>
+      <li><a href = "3.html"> Career </a></li>
+    </ol>
+
+  <div id = "article">
+    <h2>Projects</h2>
+    <h4>16-bit RISC Processor</h4>
+    <ul>
+      <li>Designed 16-bit RISC processor on Nexys4 FPGA using Verilog</li>
+      <li>Created various test fixtures to ensure design meets specifications</li>
+    </ul>
+    <h4><a href="https://github.com/djok0127/CECS275">Phone Book</a></h4>
+    <ul>
+      <li>Coded phonebook using C++ that allows users to search for contacts based upon key information</li>
+      <li>Programmed linked list ot store contacts and ouput of information with operator overloads</li>
+    </ul>
+    <h4><a href="https://github.com/djok0127/CECS447">Bluetooth Robot Car</a></h4>
+    <ul>
+      <li>Built with Tiva-C LaunchPad using Embedded C</li>
+      <li>Implemented bluetooth connection using HC-05 and smartphone</li>
+    </ul>
+    <h4><a href="https://github.com/djok0127/CECS347">Autonomous Wall Following Robot Car</a></h4>
+    <ul>
+      <li>Built with Tiva-C LaunchPad using Embedded C</li>
+      <li>Implemented variable speed and direction utilzing H-bridge and PWM</li>
+    </ul>
+    <h4><a href="https://github.com/djok0127/CECS460">Pong Video Game</a></h4>
+    <ul>
+      <li>Recreated pong video gam eon FPGA using Verilog</li>
+      <li>Designed self0checking test bench to ensure proper display</li>
+    </ul>
+  </div>
 </body>
 </html>

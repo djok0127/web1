@@ -1,0 +1,70 @@
+body{
+  margin:0;
+}
+/* for every hyperlink, change color */
+/* selector */
+a {
+
+  /* declaration */
+  /* property:valued */
+  color:black;
+  text-decoration: none;
+}
+h1 {
+  font-size:45px;
+  text-align:center;
+  border-bottom:1px solid gray;
+  padding:20px;
+  margin:0px;
+}
+ol {
+  border-right:1px solid  gray;
+  width: 100px;
+  margin:0;
+  padding:20px;
+}
+li {
+  margin: 3px;
+}
+#grid ol li{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+.line_sector{
+  border-bottom:1px solid gray;
+}
+
+.active{
+  color:red;
+  text-decoration-line: underline;
+}
+/* order matters */
+.visited {
+  color:gray;
+
+}
+
+#grid{
+  display:grid;
+  grid-template-columns: 150px 1fr;
+}
+#grid ol {
+  padding-left:33px;
+}
+#article{
+  padding-left: 25px;
+}
+
+@media(max-width:800px){
+  #grid{
+    display:block;
+  }
+  ol{
+    border-right:none;
+  }
+
+  h1{
+    border-bottom:none;
+  }
+}

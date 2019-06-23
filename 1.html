@@ -7,36 +7,71 @@
   <!-- creating name for the website(tab) -->
   <title>Dong Jae Shin's Website</title>
   <meta charset="utf-8">
+  <link rel = "stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1><a href = "index.html"> Chris (Dong Jae) Shin's Website</a></h1>
+  <h1><a href = "index.html"> Dong Jae (Chris) Shin's Website</a></h1>
 
-  <ol>
-    <li><a href = "1.html"> HTML </a></li>
-    <li><a href = "2.html"> CSS </a></li>
-    <li><a href = "3.html"> JavaScript </a></li>
-  </ol>
+  <div id = "grid">
+    <ol>
+      <li><a href = "1.html" class = "active"> About Me </a></li>
+      <li><a href = "2.html"> Projects </a></li>
+      <li><a href = "3.html"> Career </a></li>
+    </ol>
 
+    <div id = "article">
+      <div class = "line_sector">
+      <h2>About:</h2>
+        <p style = "margin-left:20px">
+          A fourth-year Computer Engineering undergraduate student
+          at California State University, Long Beach with an interest in
+          FPGA, embedded software development, game software development,
+          and software development. Currently seeking a fall internship
+          and full time position to apply my experience and skills.
+        </p>
+      </div>
 
+      <div class = "line_sector">
+      <h2> Specialties: </h2>
+        <ul>
+          <li>Embedded Software (C, C++)</li>
+          <li>Verilog and Verilog Test Bench</li>
+          <li>C++</li>
+          <li>Test and Verification</li>
+          <li>Linux Envrionment</li>
+        </ul>
+      </div>
 
-  <h2>Introduction:</h2>
-  <p>This is an introduction to Chris's website</p>
-  <p><a href= "https://google.com" target = "_blank" title = "google website">Google</a></p>
-
-
-  <!-- line breaker p vs br -->
-  <!-- p is better because it is more informational -->
-  <p> This website consists of projects and career of Chris Shin</p>
-
-  <!-- introduction to css -->
-  <!-- class for css -->
-  <p style ="margin-top:40px;"> creating some margins on top</p>
-
-  learning about the parent tag and the children tag
-
-
-  <!-- Attribute: order does not matter -->
-  <img src = "developer.jpg" width = "100%">
+      <div class = "line_sector">
+      <h2> Skills</h2>
+        <ul>
+          <li>
+            <strong>Languages:</strong>
+            C, C#, C++, Java, Python, Verilog, Assembly, ColdFusion
+            ,CSS JavaScript, HTML, MySQL, MATLAB
+          </li>
+          <li>
+            <strong>Software: </strong>
+            Xilinx Vivado, Xilinx ISE, LTSpice, Microsoft Office,
+            Latex, Keil uVision, Git, TortoiseSVN, Trello
+          </li>
+          <li>
+            <strong>Hardware: </strong>
+            Raspberry PI, Arduino, Nexys4(Artix-7), Tiva-C LaunchPad(ARM Cortex-M4F)
+            , 8051 Microcontroller, STM32f4-discovery, Digi 6UL SBC
+          </li>
+          <li>
+            <strong> Lab Tools:</strong>
+            Multimeter, Oscilliscope, Soldering Iron, Function Generator
+          </li>
+          <li>
+            <strong> Operating System</strong>
+            Windows, macOS, Linux(Ubuntu and Kernel)
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
