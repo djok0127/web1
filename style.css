@@ -46,10 +46,14 @@ li {
   border-bottom:1px solid gray;
 }
 
-.active{
+a:hover {
+  color:gray;
+}
+a:active{
   color:red;
   text-decoration-line: underline;
 }
+
 /* order matters */
 .visited {
   color:gray;

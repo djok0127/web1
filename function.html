@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<!-- <html lang="en" dir="ltr"> -->
+
+
+<head>
+  <!-- creating name for the website(tab) -->
+  <title>Dong Jae Shin's Website</title>
+  <meta charset="utf-8">
+  <link rel = "stylesheet" href="style.css">
+
+  <script type="text/javascript">
+    function nightDayHandler(self){
+      var target = document.querySelector('body');
+      if(self.value === 'night'){
+        target.style.backgroundColor = 'black';
+        target.style.color = 'white';
+        target.dataset.mode = 'night';
+        self.value = 'day';
+        var i;
+        var alist = document.querySelectorAll('a');
+        for(i = 0; i < alist.length; i++ ){
+          alist[i].style.color = 'white'
+        }
+      } else{
+        target.style.backgroundColor = 'white';
+        target.style.color = 'black';
+        target.dataset.mode = 'day';
+        self.value = 'night';
+        var i;
+        var alist = document.querySelectorAll('a');
+        for(i = 0; i < alist.length; i++ ){
+          alist[i].style.color = 'black'
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1><a href = "index.html"> Dong Jae (Chris) Shin's Website</a></h1>
+
+  <div id = "grid">
+    <ol>
+      <script>
+      var tab = ['1.html','2.html','3.html', 'playground.html'];
+      var contents = ['About Me','Projects', 'Careers', 'Play Ground'];
+        var i;
+        for(i = 0; i < tab.length; i++){
+          document.write('<li><a href ="'+tab[i]+'">' + contents[i] +'</a></li>');
+        }
+      </script>
+    </ol>
+
+    <div id = "article">
+      <h2>Function</h2>
+        <input type = "button" value="night" onclick="nightDayHandler(this);">
+
+
+    </div>
+  </div>
+</body>
+
+</html>
