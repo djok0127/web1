@@ -16,8 +16,6 @@
 
   <!-- call 1024 game -->
   <script src = "1024/1024.js"> </script>
-
-  <link rel = "stylesheet" href="style.css">
 </head>
 <body>
   <h1><a href = "index.html"> Dong Jae (Chris) Shin's Website</a></h1>
@@ -44,9 +42,10 @@
           <!-- 1024 game -->
           <h2> 1024 </h2>
 
+          <input type = "button" value = "Reset" onclick = "resetGame();">
           <script>
             //document.write(getRandomLocation(4));
-            getTable(4);
+            initGame(4);
           </script>
         </div>
         <!-- <script> getTable();</script> -->

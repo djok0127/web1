@@ -54,6 +54,18 @@ a:active{
   text-decoration-line: underline;
 }
 
+#1024 table{
+  /* tbl.style.width  = '400px';
+  tbl.style.height = '400px';
+  tbl.style.border = '3px solid black';
+  tbl.align = 'center'; */
+  width:400px;
+  height:400px;
+  border: 3px;
+  border-style:solid;
+  border-color:black;
+}
+
 /* order matters */
 .visited {
   color:gray;
