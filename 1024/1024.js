@@ -29,6 +29,23 @@ var GAME = {
   },
   isSame:function(loc1, loc2){
     return window.game_table[loc1[0]][loc1[1]] === window.game_table[loc2[0]][loc2[1]];
+  },
+  merge:function(loc1, loc2){
+    // merge loc2 to loc 1
+    window.game_table[loc1[0]][loc1[1]] = window.game_table[loc1[0]][loc1[1]] + window.game_table[loc2[0]][loc2[1]];
+    window.game_table[loc2[0]][loc2[1]] = 0;
+  },
+  move:function(loc1, loc2){
+    // move loc2 to loc 1
+    window.game_table[loc1[0]][loc1[1]] = window.game_table[loc2[0]][loc2[1]];
+    window.game_table[loc2[0]][loc2[1]] = 0;
+  },
+  updateGameStatus:function(){
+    // -1: lose, 0: keep playing , 1: victory
+    var lose = false;
+    while(1){
+
+    } // end of while
   }
 }
 
@@ -89,6 +106,7 @@ function initGame(){
 }
 
 function updateGame(){
+  updateScore();
   var newLoc;
 
   // add random number 2 or 4 on a blank space
@@ -167,68 +185,145 @@ function updateGame(){
       body.appendChild(tbl);
 }
 
+
+function updateScore(){
+  var score = 0;
+  for(var i = 0; i < 4; i++)
+    for(var j = 0; j < 4; j++)
+      if(window.game_table[i][j] != undefined)
+      score = score + window.game_table[i][j];
+
+  document.getElementById("score").innerHTML = score;
+}
+
 function removeTable(id)
 {
     var tbl = document.getElementById(id);
     if(tbl) tbl.parentNode.removeChild(tbl);
 }
 
-function up_arrow(col){
-  // add code
+function up_arrow(){
+  var head_loc;
+  var tail_loc;
+  var head_exists = false;
+  var tail_exists = false;
+  var mergeable = true;
+  // take care of columns
+  for(var col = 0; col < 4; col ++){
+    for(var head = 3; head >= 1; head --){
+      head_loc = [head, col];
+      mergeable = true;
+
+      for(var tail = head - 1; tail >= 0; tail --){
+        head_exists = !GAME.isBlank(head_loc);
+        tail_loc = [tail, col];
+        tail_exists = !GAME.isBlank(tail_loc);
+
+        if(tail_exists && head_exists) {
+          if(GAME.get(head_loc) === GAME.get(tail_loc) && mergeable)
+            GAME.merge(head_loc,tail_loc);
+
+          mergeable = false;
+        }
+        if(!head_exists && tail_exists)
+            GAME.move(head_loc, tail_loc);
+
+      } // end of tail for
+    } // end of head for
+  } // end of row for
 }
 
-function down_arrow(col){
-  //add code
+function down_arrow(){
+  var head_loc;
+  var tail_loc;
+  var head_exists = false;
+  var tail_exists = false;
+  var mergeable = true;
+  // take care of columns
+  for(var col = 0; col < 4; col ++){
+    for(var head = 0; head < 3; head ++){
+      head_loc = [head, col];
+      mergeable = true;
+      for(var tail = head + 1; tail < 4; tail ++){
+        head_exists = !GAME.isBlank(head_loc);
+        tail_loc = [tail, col];
+        tail_exists = !GAME.isBlank(tail_loc);
+
+        if(tail_exists && head_exists) {
+          if(GAME.get(head_loc) === GAME.get(tail_loc) && mergeable)
+            GAME.merge(head_loc,tail_loc);
+
+          mergeable = false;
+        }
+        if(!head_exists && tail_exists)
+            GAME.move(head_loc, tail_loc);
+
+
+      } // end of tail for
+    } // end of head for
+  } // end of row for
 }
 
 function right_arrow(row){
-  // add code
-}
+  var head_loc;
+  var tail_loc;
+  var head_exists = false;
+  var tail_exists = false;
+  var mergeable = true;
+  // take care of columns
+  for(var row = 0; row < 4; row ++){
+    for(var head = 3; head >= 1; head --){
+      head_loc = [row, head];
+      mergeable = true;
+      for(var tail = head - 1; tail >= 0; tail --){
+        head_exists = !GAME.isBlank(head_loc);
+        tail_loc = [row, tail];
+        tail_exists = !GAME.isBlank(tail_loc);
+
+        if(tail_exists && head_exists) {
+          if(GAME.get(head_loc) === GAME.get(tail_loc) && mergeable)
+            GAME.merge(head_loc,tail_loc);
+
+          mergeable = false;
+        }
+        if(!head_exists && tail_exists)
+            GAME.move(head_loc, tail_loc);
+
+
+      } // end of tail for
+    } // end of head for
+  } // end of row for
+} // end of right arrow
 
 function left_arrow(){
-  // check all the row
-  var current_loc;
-  var previous_num = 0;
-  var current_num = 0;
-  for(var j = 0; j < 4; j++){
-    previous_num = 0;
-    current_num = 0;
-    for(var i = 3; i >= 0; i--){
-      current_loc = [j,i];
+  var head_loc;
+  var tail_loc;
+  var head_exists = false;
+  var tail_exists = false;
+  var mergeable = true;
 
-      if(GAME.isBlank(current_loc)){
-        //current location is blank
+  for(var row = 0; row < 4; row ++){
+    for(var head = 0; head < 3; head ++){
+      head_loc = [row, head];
+      mergeable  = true;
+      for(var tail = head + 1; tail < 4; tail ++){
+        head_exists = !GAME.isBlank(head_loc);
+        tail_loc = [row, tail];
+        tail_exists = !GAME.isBlank(tail_loc);
 
-        //get rid of previous location
-        GAME.set([current_loc[0],current_loc[1]+1], 0);
-        // move the previous num to blank location
-        GAME.set(current_loc, previous_num);
+        if(tail_exists && head_exists) {
+          if(GAME.get(head_loc) === GAME.get(tail_loc) && mergeable)
+            GAME.merge(head_loc,tail_loc);
 
-      } else {
-        if(GAME.get(current_loc) === previous_num){
-          //get rid of previous location
-          GAME.set([current_loc[0],current_loc[1]+1], 0);
-          // move the previous num to blank location
-          GAME.set(current_loc, previous_num + GAME.get(current_loc));
-        }
+          mergeable = false;
+        } // end of tail exists and head exists
+        if(!head_exists && tail_exists)
+            GAME.move(head_loc, tail_loc);
 
-      }
-    previous_num = GAME.get(current_loc) === undefined ? 0: GAME.get(current_loc);
-    } // end of for
-  }
-} // end of left left_arrow
-
-function addRow(row){
-  //var tbl = document.getElementById('1024');
-  var total = 0;
-  var temp = 0;
-  for(var i = 0; i < 4; i++){
-    temp = GAME.get([row,i]);
-    if(temp != undefined) total += temp;
-  }
-
-  return total;
-} // end of function getRow
+      } // end of tail for
+    } // end of head for
+  } // end of row for
+} // end of
 
 function checkKey(e) {
 
@@ -236,26 +331,23 @@ function checkKey(e) {
     var tbl = document.getElementById('1024');
 
     if (e.keyCode == '38') {
-        // up arrow
-        // removeTable('1024');
-        // initGame(4);
-        //alert(getRow(0));
+        down_arrow();
+        updateGame();
     }
     else if (e.keyCode == '40') {
         // down arrow
+        up_arrow();
         updateGame();
     }
     else if (e.keyCode == '37') {
        // left arrow
-       left_arrow(0);
-       // GAME.set([0,0],addRow(0));
-       // GAME.set([1,0],addRow(1));
-       // GAME.set([2,0],addRow(2));
-       // GAME.set([3,0],addRow(3));
+       left_arrow();
        updateGame();
     }
     else if (e.keyCode == '39') {
        // right arrow
+       right_arrow();
+       updateGame();
     }
 
 }
