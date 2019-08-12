@@ -1,7 +1,7 @@
 
 // global variable
 var game_table = create2DArray(4,4);
-
+var previous_table;
 var GAME = {
   get:function(location){
     return game_table[location[0]][location[1]];
@@ -42,12 +42,20 @@ var GAME = {
   },
   updateGameStatus:function(){
     // -1: lose, 0: keep playing , 1: victory
-    var lose = false;
-    while(1){
-
-    } // end of while
-  }
-}
+    var current;
+    for(var row = 0; row < 4; row ++){
+      for(var col = 0; col < 4; col ++){
+        current = window.game_table[row][col];
+        if(current === undefined || current === 0) return 0;
+        if(current === 1024) return 1;
+        if(col < 3 && current === window.game_table[row][col+1]) return 0;
+        if(row < 3 && current === window.game_table[row+1][col]) return 0;
+      } // end of col for loop
+    } // end of row for loop
+    window.alert("game lost");
+    return -1;
+  } // updateGameStatus
+}// game
 
 function create2DArray(rows, columns){
   var x = new Array(rows);
@@ -56,7 +64,7 @@ function create2DArray(rows, columns){
     x[i] = new Array(columns);
   }
   return x;
-}
+} // create2DArray
 
 // Description: Create Random location of x and y, limited by same max value
 // @Param : Maximum value of the location
@@ -71,7 +79,7 @@ function resetGame(){
   removeTable('1024');
   game_table = create2DArray(4,4);
   initGame();
-}
+} // resetGame
 
 function initGame(){
   document.onkeydown = checkKey;
@@ -103,18 +111,24 @@ function initGame(){
         }
       }
       body.appendChild(tbl);
-}
+} // initGame
 
 function updateGame(){
   updateScore();
   var newLoc;
+  var status = GAME.updateGameStatus();
+  if( status === -1 ) window.alert("game lost");
+  else if(status === 1) window.alert("game won");
 
-  // add random number 2 or 4 on a blank space
-  do{
-    newLoc = getRandomLocation(4);
-  } while(!GAME.isBlank(newLoc)); // run again if the tile is not blank
-  GAME.add(newLoc);
-
+  if(window.game_table != window.previous_table){
+    // add random number 2 or 4 on a blank space
+    var bound = 0;
+    do{
+      newLoc = getRandomLocation(4);
+      bound ++;
+    } while(!GAME.isBlank(newLoc) && bound < 100); // run again if the tile is not blank
+    GAME.add(newLoc);
+  }
   removeTable('1024');
 
   var body = document.body,
@@ -183,8 +197,8 @@ function updateGame(){
         }
       }
       body.appendChild(tbl);
-}
 
+} // end updateGame
 
 function updateScore(){
   var score = 0;
@@ -194,13 +208,12 @@ function updateScore(){
       score = score + window.game_table[i][j];
 
   document.getElementById("score").innerHTML = score;
-}
+} // updateScore
 
-function removeTable(id)
-{
+function removeTable(id){
     var tbl = document.getElementById(id);
     if(tbl) tbl.parentNode.removeChild(tbl);
-}
+} // removeTable
 
 function up_arrow(){
   var head_loc;
@@ -208,7 +221,7 @@ function up_arrow(){
   var head_exists = false;
   var tail_exists = false;
   var mergeable = true;
-  // take care of columns
+
   for(var col = 0; col < 4; col ++){
     for(var head = 3; head >= 1; head --){
       head_loc = [head, col];
@@ -231,7 +244,7 @@ function up_arrow(){
       } // end of tail for
     } // end of head for
   } // end of row for
-}
+} // up_arrow
 
 function down_arrow(){
   var head_loc;
@@ -239,7 +252,7 @@ function down_arrow(){
   var head_exists = false;
   var tail_exists = false;
   var mergeable = true;
-  // take care of columns
+
   for(var col = 0; col < 4; col ++){
     for(var head = 0; head < 3; head ++){
       head_loc = [head, col];
@@ -257,12 +270,10 @@ function down_arrow(){
         }
         if(!head_exists && tail_exists)
             GAME.move(head_loc, tail_loc);
-
-
       } // end of tail for
     } // end of head for
   } // end of row for
-}
+} // down_arrow
 
 function right_arrow(row){
   var head_loc;
@@ -270,7 +281,7 @@ function right_arrow(row){
   var head_exists = false;
   var tail_exists = false;
   var mergeable = true;
-  // take care of columns
+
   for(var row = 0; row < 4; row ++){
     for(var head = 3; head >= 1; head --){
       head_loc = [row, head];
@@ -288,8 +299,6 @@ function right_arrow(row){
         }
         if(!head_exists && tail_exists)
             GAME.move(head_loc, tail_loc);
-
-
       } // end of tail for
     } // end of head for
   } // end of row for
@@ -323,31 +332,34 @@ function left_arrow(){
       } // end of tail for
     } // end of head for
   } // end of row for
-} // end of
+} // end of left_arrow
+
 
 function checkKey(e) {
 
     e = e || window.event;
-    var tbl = document.getElementById('1024');
+
 
     if (e.keyCode == '38') {
-        down_arrow();
-        updateGame();
+
+      down_arrow();
     }
     else if (e.keyCode == '40') {
-        // down arrow
-        up_arrow();
-        updateGame();
+
+      // down arrow
+      up_arrow();
     }
     else if (e.keyCode == '37') {
-       // left arrow
-       left_arrow();
-       updateGame();
+
+      // left arrow
+      left_arrow();
     }
     else if (e.keyCode == '39') {
-       // right arrow
-       right_arrow();
-       updateGame();
+
+      // right arrow
+      right_arrow();
     }
+
+    updateGame();
 
 }
